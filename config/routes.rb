@@ -8,5 +8,8 @@ Rails.application.routes.draw do
     resources :drivers, except: [:new, :edit, :index] do
       post 'login', on: :collection
     end
+
+    resources :pickups, except: [:new, :edit, :index]
+
   end
 end

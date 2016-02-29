@@ -9,4 +9,16 @@ class User < ActiveRecord::Base
   def auth_token= token
     set_auth_token token
   end
+
+  def self.default_params
+    [:id, :name, :email, :street, :unit_number, :city, :state, :zip_code]
+  end
+
+  def self.create_params
+    default_params + [:auth_token]
+  end
+
+  def self.login_params
+    [:auth_token]
+  end
 end
