@@ -5,9 +5,9 @@ class ApplicationController < ActionController::API
     @current_user ||= User.find_by_auth_token header_token
   end
 
-  # def current_driver
-  #   @current_driver ||= Driver.find_by_token header_token
-  # end
+  def current_driver
+    @current_driver ||= Driver.find_by_auth_token header_token
+  end
 
   private
 
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
 
     def authenticate_token
       if header_token.present?
-        unless current_user.present?
+        unless current_user.present? || current_driver.present?
           render json: { message: "Invalid token." }, status: 401
         end
       else

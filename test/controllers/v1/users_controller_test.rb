@@ -2,7 +2,8 @@ require 'test_helper'
 
 class V1::UsersControllerTest < ActionController::TestCase
   setup do
-    setup_request_header
+    @user = create :user
+    setup_headers @user.auth_token
   end
 
   test 'can post create' do

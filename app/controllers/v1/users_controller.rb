@@ -4,7 +4,7 @@ class V1::UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save!
-      user = @user.as_json(except: create_params)
+      user = @user.as_json(only: create_params)
       render json: { user: user }
     else
       render json: { message: @user.errors }, status: 422
@@ -13,16 +13,20 @@ class V1::UsersController < ApplicationController
 
   def show
     @user = current_user
-    render json: @user
+    render json: @user.as_json(only: default_params)
   end
 
   def update
     @user = current_user
     if @user.update_attributes(user_params)
-      render json: @user
+      render json: @user.as_json(only: default_params)
     else
       render json: { message: @user.errors }, status: 422
     end
+  end
+
+  def destroy
+    #TODO soft delete
   end
 
   def login
@@ -37,8 +41,12 @@ class V1::UsersController < ApplicationController
 
   private
 
+    def default_params
+      [:id, :name, :email, :street, :unit_number, :city, :state, :zip_code]
+    end
+
     def create_params
-      [:password_digest, :created_at, :updated_at]
+      default_params + [:auth_token]
     end
 
     def login_params

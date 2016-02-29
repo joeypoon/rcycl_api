@@ -6,7 +6,6 @@ gem 'pg', '~> 0.15'
 gem 'bcrypt', '~> 3.1.7'
 gem 'puma'
 gem 'faker'
-gem 'active_model_serializers'
 gem 'rails-api'
 
 group :development, :test do

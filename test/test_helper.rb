@@ -8,8 +8,7 @@ class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 
   # Add more helper methods to be used by all tests here...
-  def setup_request_header
-    @user = create :user
-    @request.headers['x-auth-token'] = @user.auth_token
+  def setup_headers(token)
+    @request.headers['x-auth-token'] = token
   end
 end

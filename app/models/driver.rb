@@ -1,9 +1,9 @@
-class User < ActiveRecord::Base
+class Driver < ActiveRecord::Base
   include AuthToken
   has_secure_password
   after_create :regenerate_auth_token
 
-  validates :street, :unit_number, :city, :state, :zip_code, presence: true
+  validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
   def auth_token= token
