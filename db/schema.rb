@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20160229050313) do
     t.string   "password_digest"
     t.string   "auth_token"
     t.datetime "auth_expiration"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
