@@ -40,5 +40,6 @@ class V1::DriversControllerTest < ActionController::TestCase
     get 'nearby_pickups', latitude: latitude - 0.1, longitude: longitude - 0.1
     assert_response 200
     assert_not_nil assigns(:pickups)
+    binding.pry
   end
 end

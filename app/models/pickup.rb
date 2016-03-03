@@ -22,7 +22,7 @@ class Pickup < ActiveRecord::Base
 
   def self.serialize_nearby(pickups, latitude, longitude)
     pickups.map do |pickup|
-      address = User.find(pickup["user_id"]).full_address
+      address = User.find(pickup.user_id).full_address
       distance = pickup.distance_from([latitude, longitude])
       pickup = pickup.serialize(:nearby)
       pickup.merge({ address: address, distance: distance })
