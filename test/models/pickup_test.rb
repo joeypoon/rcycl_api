@@ -11,8 +11,22 @@ class PickupTest < ActiveSupport::TestCase
     assert_not pickup.valid?
   end
 
+  test 'validates presence of time' do
+    pickup = build :pickup, time: nil
+    assert_not pickup.valid?
+  end
+
   test 'validates status' do
     pickup = build :pickup, status: nil
     assert_not pickup.valid?
+  end
+
+  test 'gets lat and lon after create' do
+    lat = 100
+    lon = 100
+    user = create :user, latitude: lat, longitude: lon
+    pickup = create :pickup, user: user
+    assert_equal pickup.latitude, lat
+    assert_equal pickup.longitude, lon
   end
 end

@@ -7,6 +7,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'puma'
 gem 'faker'
 gem 'rails-api'
+gem 'geocoder'
 
 group :development, :test do
   gem 'pry'

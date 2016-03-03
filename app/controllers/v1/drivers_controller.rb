@@ -34,7 +34,22 @@ class V1::DriversController < ApplicationController
       @driver.regenerate_auth_token
       render json: @driver.as_json(only: Driver.login_params)
     else
-      render json: { message: "Invalid email/password combination" }, status: 401
+      render json: { message: "Invalid email/password combination." }, status: 401
+    end
+  end
+
+  def nearby_pickups
+    @driver = current_driver
+    distance = params[:distance] || 20
+    latitude = params[:latitude]&.to_f
+    longitude = params[:longitude]&.to_f
+
+    if latitude.present? && longitude.present?
+      @pickups = Pickup.near([latitude, longitude], 20)
+      @pickups = Pickup.serialize_nearby @pickups
+      render json: @pickups
+    else
+      render json: { error: "Must provide latitude and longitude." }
     end
   end
 
