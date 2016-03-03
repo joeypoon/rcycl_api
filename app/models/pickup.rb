@@ -22,13 +22,18 @@ class Pickup < ActiveRecord::Base
   def self.serialize_nearby(pickups)
     pickups.map do |pickup|
       pickup = pickup.as_json(only: Pickup.nearby_params)
-      user = User.find(pickup["user_id"]).as_json(only: User.default_params)
+      user = User.find(pickup["user_id"]).as_json(only: User.default_params - [:id])
       pickup.merge({ user: user })
     end
   end
 
   def full_address
     user.full_address
+  end
+
+  def status=(options)
+    self.picked_up_at = Time.now if options&.downcase == "picked up"
+    super
   end
 
   private

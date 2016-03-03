@@ -29,4 +29,11 @@ class PickupTest < ActiveSupport::TestCase
     assert_equal pickup.latitude, lat
     assert_equal pickup.longitude, lon
   end
+
+  test 'will set picked_up_at when status is set to Picked Up' do
+    pickup = create :pickup
+    assert pickup.picked_up_at.nil?
+    pickup.status = "Picked Up"
+    assert_not_nil pickup.picked_up_at
+  end
 end
