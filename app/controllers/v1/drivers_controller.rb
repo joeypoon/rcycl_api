@@ -4,7 +4,7 @@ class V1::DriversController < ApplicationController
   def create
     @driver = Driver.new driver_params
     if @driver.save!
-      render json: { driver: @driver.serialize(:create) }
+      render json: @driver.serialize(:create)
     else
       render json: { message: @driver.errors }, status: 422
     end
@@ -12,13 +12,13 @@ class V1::DriversController < ApplicationController
 
   def show
     @driver = current_driver
-    render json: { driver: @driver.serialize }
+    render json: @driver.serialize
   end
 
   def update
     @driver = current_driver
     if @driver.update_attributes(driver_params)
-      render json: { driver: @driver.serialize }
+      render json: @driver.serialize
     else
       render json: { message: @driver.errors }, status: 422
     end
@@ -32,7 +32,7 @@ class V1::DriversController < ApplicationController
     @driver = Driver.find_by_email driver_params[:email]
     if @driver&.authenticate(driver_params[:password])
       @driver.regenerate_auth_token
-      render json: { driver: @driver.serialize(:login) }
+      render json: @driver.serialize(:login)
     else
       render json: { message: "Invalid email/password combination." }, status: 401
     end
