@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include AuthToken
+  include CustomSerializer
   has_secure_password
 
   after_create :regenerate_auth_token
@@ -15,12 +16,17 @@ class User < ActiveRecord::Base
     set_auth_token token
   end
 
+  def serialize(type=:default, address=false)
+    super(type)
+    @result[self.class].merge!({ address: full_address }) if address
+  end
+
   def full_address
     "#{street} #{unit_number}, #{city}, #{state} #{zip_code}"
   end
 
   def self.default_params
-    [:id, :name, :email, :street, :unit_number, :city, :state, :zip_code]
+    [:id, :name, :email]
   end
 
   def self.create_params

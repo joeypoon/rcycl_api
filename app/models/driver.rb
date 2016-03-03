@@ -1,5 +1,6 @@
 class Driver < ActiveRecord::Base
   include AuthToken
+  include CustomSerializer
   has_secure_password
 
   after_create :regenerate_auth_token

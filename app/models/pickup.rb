@@ -1,4 +1,5 @@
 class Pickup < ActiveRecord::Base
+  include CustomSerializer
   belongs_to :user
   belongs_to :driver
 
@@ -19,11 +20,12 @@ class Pickup < ActiveRecord::Base
     self.default_params - [:driver_id, :picked_up_at]
   end
 
-  def self.serialize_nearby(pickups)
+  def self.serialize_nearby(pickups, latitude, longitude)
     pickups.map do |pickup|
-      pickup = pickup.as_json(only: Pickup.nearby_params)
-      user = User.find(pickup["user_id"]).as_json(only: User.default_params - [:id])
-      pickup.merge({ user: user })
+      address = User.find(pickup["user_id"]).full_address
+      distance = pickup.distance_from([latitude, longitude])
+      pickup = pickup.serialize(:nearby)
+      pickup.merge({ address: address, distance: distance })
     end
   end
 

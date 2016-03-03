@@ -33,9 +33,11 @@ class V1::DriversControllerTest < ActionController::TestCase
   end
 
   test 'can get nearby pickups' do
-    user = create :user, latitude: 45.11, longitude: -93.67
+    latitude = 45.23
+    longitude = -93.11
+    user = create :user, latitude: latitude, longitude: longitude
     pickup = create :pickup, user: user
-    get 'nearby_pickups', latitude: user.latitude, longitude: user.longitude
+    get 'nearby_pickups', latitude: latitude - 0.1, longitude: longitude - 0.1
     assert_response 200
     assert_not_nil assigns(:pickups)
   end
