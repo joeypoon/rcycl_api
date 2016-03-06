@@ -30,5 +30,6 @@ class V1::UsersControllerTest < ActionController::TestCase
     post 'login', user: @user.as_json.merge(password: "password")
     assert_response 200
     assert_not_nil assigns(:user)
+    binding.pry
   end
 end

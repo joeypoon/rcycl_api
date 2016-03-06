@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def self.login_params
-    [:auth_token]
+    [:id, :auth_token]
   end
 
   private
