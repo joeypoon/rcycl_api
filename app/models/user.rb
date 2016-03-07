@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :pickups
 
-  validates :street, :unit_number, :city, :state, :zip_code, presence: true
+  validates :street, :city, :state, :zip_code, presence: true
   validates :email, presence: true, uniqueness: true
 
   def auth_token= token
