@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   def serialize(type=:default, address=false)
     super(type)
     @result[self.class.to_s.downcase].merge!({ address: full_address }) if address
+    @result
   end
 
   def full_address
