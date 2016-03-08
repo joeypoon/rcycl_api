@@ -36,4 +36,9 @@ class PickupTest < ActiveSupport::TestCase
     pickup.status = "Picked Up"
     assert_not_nil pickup.picked_up_at
   end
+
+  test 'can set time as int' do
+    pickup = create :pickup, time: Time.now.to_i
+    assert pickup.valid?
+  end
 end
