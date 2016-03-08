@@ -38,6 +38,11 @@ class Pickup < ActiveRecord::Base
     super
   end
 
+  def time=(options)
+    options = Time.at(options) if options.class == Fixnum
+    super
+  end
+
   private
 
     def valid_statuses
