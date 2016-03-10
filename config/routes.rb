@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
     resources :pickups, except: [:new, :edit, :index]
   end
+
+  resources :subscribers, only: [:create]
 end
