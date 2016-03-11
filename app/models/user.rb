@@ -31,11 +31,11 @@ class User < ActiveRecord::Base
   end
 
   def self.create_params
-    default_params + [:auth_token]
+    default_params + [:auth_token, :auth_expiration]
   end
 
   def self.login_params
-    [:id, :auth_token]
+    [:id, :auth_token, :auth_expiration]
   end
 
   private
