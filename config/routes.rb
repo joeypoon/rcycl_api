@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  namespace :v1 do
+  root to: "users#new"
+  resources :subscribers, only: [:create]
+  resources :users, only: [:new, :create, :show]
 
+  namespace :v1 do
     resources :users, except: [:new, :edit, :index] do
       post 'login', on: :collection
     end
@@ -12,6 +15,4 @@ Rails.application.routes.draw do
 
     resources :pickups, except: [:new, :edit, :index]
   end
-
-  resources :subscribers, only: [:create]
 end

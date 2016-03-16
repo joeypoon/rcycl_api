@@ -1,4 +1,4 @@
-class V1::DriversController < ApplicationController
+class V1::DriversController < ApiController
   skip_before_action :authenticate_token, only: [:create, :login]
 
   def create

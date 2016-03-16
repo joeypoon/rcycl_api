@@ -1,4 +1,4 @@
-class V1::UsersController < ApplicationController
+class V1::UsersController < ApiController
   skip_before_action :authenticate_token, only: [:create, :login]
 
   def create

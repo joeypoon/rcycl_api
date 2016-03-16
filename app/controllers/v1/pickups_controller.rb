@@ -1,4 +1,4 @@
-class V1::PickupsController < ApplicationController
+class V1::PickupsController < ApiController
   def create
     @pickup = Pickup.new pickup_params
     if @pickup.save!
