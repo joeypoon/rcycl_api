@@ -1,10 +1,18 @@
 <div class="col-md-6 col-md-offset-3"
      style="margin-top: 20px;">
+
   <%= simple_form_for @user do |f| %>
 
+    <%= f.input :name %>
     <%= f.input :email %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
+    <%= f.input :street %>
+    <%= f.input :unit_number, label: 'Street 2' %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip_code %>
+    <%= f.button :submit, 'Submit', class: 'btn btn-success' %>
 
   <% end %>
 </div>
