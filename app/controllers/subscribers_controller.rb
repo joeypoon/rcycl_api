@@ -1,4 +1,4 @@
-class SubscribersController < ApplicationController
+class SubscribersController < ApiController
   skip_before_action :authenticate_token, only: [:create]
 
   def create
@@ -13,6 +13,6 @@ class SubscribersController < ApplicationController
   private
 
     def subscriber_params
-      params.require(:subscriber).permit(:email)
+      params.require(:subscriber).permit(:email, :zip_code)
     end
 end
