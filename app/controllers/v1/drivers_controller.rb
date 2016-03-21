@@ -45,7 +45,7 @@ class V1::DriversController < ApiController
     longitude = params[:longitude]&.to_f
 
     if latitude.present? && longitude.present?
-      @pickups = Pickup.near([latitude, longitude], 20)
+      @pickups = Pickup.near([latitude, longitude], distance)
       @pickups = Pickup.serialize_nearby(@pickups, latitude, longitude)
       render json: { pickups: @pickups }
     else

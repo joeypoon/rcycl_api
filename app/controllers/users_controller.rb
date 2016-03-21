@@ -16,7 +16,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find current_user
+    @user = current_user
+  end
+
+  def sign_in
+    @user = User.find_by_email user_params[:email]
+    if @user.authenticate
+      redirect_to user_path(@user)
+    else
+
+    end
   end
 
   private
