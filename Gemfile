@@ -6,17 +6,15 @@ gem 'pg', '~> 0.15'
 gem 'bcrypt', '~> 3.1.7'
 gem 'puma'
 gem 'faker'
-# gem 'rails-api'
 gem 'geocoder'
 gem 'active_model_serializers'
-
-# Temp UI stuff
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'react-rails'
 
 group :development, :test do
   gem 'pry'

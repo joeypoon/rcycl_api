@@ -1,4 +1,4 @@
-class SubscribersController < ApiController
+class V1::SubscribersController < ApiController
   skip_before_action :authenticate_token, only: [:create]
 
   def create

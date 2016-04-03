@@ -3,10 +3,10 @@ class V1::UsersController < ApiController
 
   def create
     @user = User.new user_params
-    if @user.save!
+    if @user.save
       render json: @user
     else
-      render json: { message: @user.errors }, status: 422
+      render json: @user.errors, status: 422
     end
   end
 
@@ -20,7 +20,7 @@ class V1::UsersController < ApiController
     if @user.update_attributes(user_params)
       render json: @user
     else
-      render json: { message: @user.errors }, status: 422
+      render json: @user.errors, status: 422
     end
   end
 
