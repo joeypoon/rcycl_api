@@ -8,6 +8,7 @@ gem 'puma'
 gem 'faker'
 # gem 'rails-api'
 gem 'geocoder'
+gem 'active_model_serializers'
 
 # Temp UI stuff
 gem 'bootstrap-sass', '~> 3.3.6'

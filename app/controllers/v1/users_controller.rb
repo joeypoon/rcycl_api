@@ -4,7 +4,7 @@ class V1::UsersController < ApiController
   def create
     @user = User.new user_params
     if @user.save!
-      render json: @user.serialize(:create, true)
+      render json: @user
     else
       render json: { message: @user.errors }, status: 422
     end
@@ -12,13 +12,13 @@ class V1::UsersController < ApiController
 
   def show
     @user = current_user
-    render json: @user.serialize(:default, true)
+    render json: @user
   end
 
   def update
     @user = current_user
     if @user.update_attributes(user_params)
-      render json: @user.serialize(:default, true)
+      render json: @user
     else
       render json: { message: @user.errors }, status: 422
     end
@@ -32,7 +32,7 @@ class V1::UsersController < ApiController
     @user = User.find_by_email user_params[:email]
     if @user&.authenticate(user_params[:password])
       @user.regenerate_auth_token
-      render json: @user.serialize(:login, true)
+      render json: @user
     else
       render json: { message: "Invalid email/password combination" }, status: 401
     end
@@ -42,8 +42,7 @@ class V1::UsersController < ApiController
 
     def user_params
       params.require(:user).permit(
-          :name, :email, :password, :password_confirmation, :street,
-          :unit_number, :city, :state, :zip_code
+          :name, :email, :password, :password_confirmation
         )
     end
 end

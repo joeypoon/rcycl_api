@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316014140) do
+ActiveRecord::Schema.define(version: 20160401013549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "street"
+    t.string   "unit_number"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "default",     default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string   "name"
@@ -27,7 +41,6 @@ ActiveRecord::Schema.define(version: 20160316014140) do
   end
 
   create_table "pickups", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "driver_id"
     t.datetime "time"
     t.datetime "picked_up_at"
@@ -36,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160316014140) do
     t.datetime "updated_at",                         null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "address_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
@@ -49,17 +63,10 @@ ActiveRecord::Schema.define(version: 20160316014140) do
     t.string   "name"
     t.string   "password_digest"
     t.string   "email"
-    t.string   "street"
-    t.string   "unit_number"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip_code"
     t.string   "auth_token"
     t.datetime "auth_expiration"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.float    "latitude"
-    t.float    "longitude"
   end
 
 end

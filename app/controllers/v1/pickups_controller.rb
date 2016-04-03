@@ -1,8 +1,22 @@
 class V1::PickupsController < ApiController
+  def index
+    @driver = current_driver
+    distance = params[:distance] || 20
+    latitude = params[:latitude]&.to_f
+    longitude = params[:longitude]&.to_f
+
+    if latitude.present? && longitude.present?
+      @pickups = Pickup.near([latitude, longitude], distance)
+      render json: { pickups: @pickups }
+    else
+      render json: { error: "Must provide latitude and longitude." }
+    end
+  end
+
   def create
     @pickup = Pickup.new pickup_params
     if @pickup.save!
-      render json: @pickup.serialize
+      render json: @pickup
     else
       render json: { message: @pickup.errors }, status: 422
     end
@@ -11,7 +25,7 @@ class V1::PickupsController < ApiController
   def update
     @pickup = Pickup.find params[:id]
     if @pickup.update_attributes(pickup_params)
-      render json: @pickup.serialize
+      render json: @pickup
     else
       render json: { message: @pickup.errors }, status: 422
     end
@@ -19,7 +33,7 @@ class V1::PickupsController < ApiController
 
   def show
     @pickup = Pickup.find params[:id]
-    render json: @pickup.serialize
+    render json: @pickup
   end
 
   def destroy
@@ -29,6 +43,6 @@ class V1::PickupsController < ApiController
   private
 
     def pickup_params
-      params.require(:pickup).permit(:user_id, :time, :driver_id, :status)
+      params.require(:pickup).permit(:address_id, :time, :driver_id, :status)
     end
 end

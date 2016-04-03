@@ -1,35 +1,18 @@
 class Pickup < ActiveRecord::Base
-  include CustomSerializer
-  belongs_to :user
+  belongs_to :address
   belongs_to :driver
 
   before_create :get_geocode
   #needed for Geocoder methods
   geocoded_by :full_address
 
-  validates :user, :time, presence: true
+  validates :address, :time, presence: true
   validate :valid_status?
 
   scope :active, -> { where.not(status: ["Picked up", "Rcycld!"]) }
 
-  def self.default_params
-    [:user_id, :driver_id, :time, :picked_up_at, :status]
-  end
-
-  def self.nearby_params
-    self.default_params - [:driver_id, :picked_up_at]
-  end
-
-  def self.serialize_nearby(pickups, latitude, longitude)
-    pickups.map do |pickup|
-      address = User.find(pickup.user_id).full_address
-      pickup = pickup.serialize(:nearby)["pickup"]
-      pickup.merge({ address: address, latitude: latitude, longitude: longitude })
-    end
-  end
-
   def full_address
-    user.full_address
+    address.full_address
   end
 
   def status=(options)
@@ -55,8 +38,8 @@ class Pickup < ActiveRecord::Base
     end
 
     def get_geocode
-      self.latitude = user.latitude
-      self.longitude = user.longitude
+      self.latitude = address.latitude
+      self.longitude = address.longitude
     end
 
 end

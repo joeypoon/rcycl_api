@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
     resources :drivers, except: [:new, :edit, :index] do
       post 'login', on: :collection
-      get 'nearby_pickups', on: :collection
     end
 
-    resources :pickups, except: [:new, :edit, :index]
+    resources :pickups, except: [:new, :edit]
+    resources :addresses, except: [:new, :edit]
   end
 end

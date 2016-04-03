@@ -6,8 +6,8 @@ class PickupTest < ActiveSupport::TestCase
     assert pickup.valid?
   end
 
-  test 'validates presence of user' do
-    pickup = build :pickup, user: nil
+  test 'validates presence of address' do
+    pickup = build :pickup, address: nil
     assert_not pickup.valid?
   end
 
@@ -24,8 +24,8 @@ class PickupTest < ActiveSupport::TestCase
   test 'gets lat and lon after create' do
     lat = 100
     lon = 100
-    user = create :user, latitude: lat, longitude: lon
-    pickup = create :pickup, user: user
+    address = create :address, latitude: lat, longitude: lon
+    pickup = create :pickup, address: address
     assert_equal pickup.latitude, lat
     assert_equal pickup.longitude, lon
   end

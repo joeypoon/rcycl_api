@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :pickup do
-    user
+    address
     time Time.now
   end
 end
