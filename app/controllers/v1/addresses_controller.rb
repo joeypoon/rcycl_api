@@ -3,6 +3,7 @@ class V1::AddressesController < ApiController
     @address = Address.new address_params.except(:default)
     @address.user = current_user
     if @address.save
+      @address.mark_default if address_params[:default]
       render json: @address
     else
       render json: { message: @address.errors }, status: 422
@@ -36,7 +37,7 @@ class V1::AddressesController < ApiController
     @address = Address.find params[:id]
     #TODO soft destroy
     if @address.destroy
-      render json: @address
+      render json: { message: "Address deleted." }
     else
       render json: { message: @address.errors }, status: 422
     end
