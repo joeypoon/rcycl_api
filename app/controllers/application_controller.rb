@@ -3,16 +3,26 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user
 
   def current_user
-    @current_user ||= User.find session[:user_id]
+    @current_user ||= User.find_by_auth_token header_token
   end
 
-  def sign_in user
-    session[:user_id] = user.id
+  def current_driver
+    @current_driver ||= Driver.find_by_auth_token header_token
   end
 
   private
 
-    def authenticate_user
-      redirect_to root_path unless session[:user_id] && current_user
+    def header_token
+      request.headers["x-auth-token"]
+    end
+
+    def authenticate_token
+      if header_token.present?
+        unless current_user.present? || current_driver.present?
+          render json: { message: "Invalid token." }, status: 401
+        end
+      else
+        render json: { message: "No token present." }, status: 401
+      end
     end
 end

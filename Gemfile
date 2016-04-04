@@ -13,7 +13,6 @@ gem 'sass-rails', '>= 3.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'simple_form'
 gem 'react-rails'
 
 group :development, :test do

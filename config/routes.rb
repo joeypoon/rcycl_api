@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  root to: "users#new"
-  resources :users, only: [:new, :show] do
-    get 'login', on: :collection
-  end
+  root to: "pages#home"
+  # resources :users, only: [:new, :show] do
+  #   get 'login', on: :collection
+  # end
+  # resources :addresses, only: [:new, :edit, :index]
 
   namespace :v1 do
     resources :users, except: [:new, :edit, :index] do

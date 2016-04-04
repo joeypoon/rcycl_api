@@ -1,12 +1,6 @@
-var UserSignupForm = React.createClass({
+var UserSignupPage = React.createClass({
 
   getInitialState: function() {
-    return(
-      this._defaultState()
-    )
-  },
-
-  _defaultState: function() {
     return(
       { name: '', email: '', password: '', passwordConfirmation: '' }
     )
@@ -19,16 +13,15 @@ var UserSignupForm = React.createClass({
   _checkPasswords: function() {
     if (this.state.passwordConfirmation === this.state.password) {
       $('#user-password-confirmation').removeClass('has-error');
-      $('#user-password-confirmation .help-block').hide()
+      $('#user-password-confirmation .help-block').hide();
     } else {
       $('#user-password-confirmation').addClass('has-error');
-      $('#user-password-confirmation .help-block').show()
+      $('#user-password-confirmation .help-block').show();
     };
   },
 
   _handleSubmit: function(e) {
     e.preventDefault();
-    //TODO check for errors
     this._postUser()
   },
 
@@ -55,7 +48,7 @@ var UserSignupForm = React.createClass({
           name: this.state.name,
           email: this.state.email,
           password: this.state.password,
-          passwordConfirmation: this.state.passwordConfirmation
+          password_confirmation: this.state.passwordConfirmation
         }
       }
     )
@@ -83,7 +76,7 @@ var UserSignupForm = React.createClass({
       data: this._userObject()
     })
       .done(function(response) {
-        alert(response.responseText);
+        parent.props.updateAuthToken(response.user.auth_token);
       })
       .fail(function(response) {
         errors = JSON.parse(response.responseText);
@@ -91,9 +84,13 @@ var UserSignupForm = React.createClass({
       });
   },
 
+  _updatePage: function(page) {
+    this.props.updatePage(page);
+  },
+
   render: function() {
     return(
-      <div className="top-margin">
+      <div>
         <div className="col-md-6 col-md-offset-3" style={{marginRight: '20px'}}>
           <div id="user-form-alert" className="alert alert-danger" style={{display: 'none'}}></div>
           <form onSubmit={this._handleSubmit}>
@@ -111,6 +108,7 @@ var UserSignupForm = React.createClass({
               <span className="help-block" style={{display: 'none'}}>Passwords do not match</span>
             </div>
             <button type="submit" className="btn btn-success form-control">Submit</button>
+            <span>Already have an account? <a href="#" onClick={this._updatePage.bind(this, 'userLogin')}>Login</a></span>
           </form>
         </div>
       </div>
