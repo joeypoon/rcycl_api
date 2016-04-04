@@ -2,7 +2,10 @@ var Application = React.createClass({
 
   getInitialState: function() {
     return(
-      { page: '', authToken: this._checkForAuthToken() }
+      {
+        page: '',
+        authToken: this._checkForAuthToken()
+      }
     )
   },
 
@@ -32,8 +35,8 @@ var Application = React.createClass({
       return <UserLoginPage updateAuthToken={this._updateAuthToken} updatePage={this._updatePage} />;
     case 'userSignup':
       return <UserSignupPage updateAuthToken={this._updateAuthToken} updatePage={this._updatePage} />;
-    case 'addresses':
-      return <AddressPage updatePage={this._updatePage} />;
+    case 'addressPage':
+      return <AddressPage authToken={this.state.authToken} updatePage={this._updatePage} />;
     default:
       return <UserLoginPage updateAuthToken={this._updateAuthToken} updatePage={this._updatePage} />;
     }
@@ -46,7 +49,9 @@ var Application = React.createClass({
                 updateAuthToken={this._updateAuthToken}
                 authToken={this.state.authToken}>
         </NavBar>
-        {this._renderPage()}
+        <div className="container">
+          {this._renderPage()}
+        </div>
       </div>
     )
   }

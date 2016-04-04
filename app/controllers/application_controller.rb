@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user
+  before_action :authenticate_token
 
   def current_user
     @current_user ||= User.find_by_auth_token header_token

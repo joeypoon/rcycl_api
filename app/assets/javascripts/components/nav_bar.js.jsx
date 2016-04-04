@@ -17,7 +17,7 @@ var NavBar = React.createClass({
       return (
         <div className="collapse navbar-collapse" id="top-navbar-1">
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="#" onClick={this._updatePage.bind(this, 'address')}>Logout</a></li>
+            <li><a href="#" onClick={this._updatePage.bind(this, 'addressPage')}>Address</a></li>
             <li><a href="#" onClick={this._updatePage.bind(this, 'logout')}>Logout</a></li>
           </ul>
         </div>

@@ -91,7 +91,7 @@ var UserSignupPage = React.createClass({
   render: function() {
     return(
       <div>
-        <div className="col-md-6 col-md-offset-3" style={{marginRight: '20px'}}>
+        <div className="col-md-6 col-md-offset-3">
           <div id="user-form-alert" className="alert alert-danger" style={{display: 'none'}}></div>
           <form onSubmit={this._handleSubmit}>
             <div className="form-group">
